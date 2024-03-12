@@ -12,4 +12,4 @@
 
 ## Installation
 You will need a dev installation of vencord (https://github.com/Vendicated/Vencord/blob/main/docs/1_INSTALLING.md)
-on vesktop you will need to go into Vesktop settings and at the bottom change the vencord location to the "dist" folder in the directy of the vencord dev installation 
+on vesktop you will need to go into Vesktop settings and at the bottom change the vencord location to the "dist" folder in the directory of the vencord dev installation 
