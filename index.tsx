@@ -24,10 +24,10 @@ import { MessageObject, addPreSendListener, removePreSendListener } from "@api/M
 import { ApplicationCommandInputType, findOption, OptionalMessageOption, RequiredMessageOption, sendBotMessage, ApplicationCommandOptionType, Argument, CommandContext } from "@api/Commands";
 import definePlugin from "@utils/types";
 
-import UwUifier from "userplugins/uwuify/uwu";
+import UwUifier from "./uwu";
 const uwuifier = new UwUifier();
 
-import Femboyfy from "userplugins/uwuify/femboyfy";
+import Femboyfy from "./femboyfy";
 const femboyfier = new Femboyfy();
 
 let uwutoggle = false
