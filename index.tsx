@@ -34,16 +34,16 @@ let uwutoggle = false
 let femboytoggle = false
 
 async function handle_messages(message: MessageObject) {
-    if (uwutoggle == true) {
+    if (uwutoggle) {
         message.content = await uwuifier.uwuifySentence(message.content);
     }
-    if (femboytoggle == true) {
+    if (femboytoggle) {
         message.content = femboyfier.femboyfy(message.content);
     }
 }
 
 function toggleuwuify(ctx: CommandContext) {
-    if (uwutoggle == false) {
+    if (!uwutoggle) {
         uwutoggle = true
         const content = "UwUifier is now enabled"
         sendBotMessage(ctx.channel.id, { content });
@@ -56,7 +56,7 @@ function toggleuwuify(ctx: CommandContext) {
 }
 
 function togglefemboyfy(ctx: CommandContext) {
-    if (femboytoggle == false) {
+    if (!femboytoggle) {
         femboytoggle = true
         const content = "Femboyfier is now enabled"
         sendBotMessage(ctx.channel.id, { content });
