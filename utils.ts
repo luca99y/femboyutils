@@ -44,6 +44,7 @@ export function InitModifierParam() {
                 sum = Object.values(next).reduce((a, b) => a + b);
             }
 
+            // FIXME: idek what this does but there's red error squiggles
             if (next < 0 || sum < 0 || next > 1 || sum > 1) {
                 throw new Error(
                     `${key} modifier value must be a number between 0 and 1`,
@@ -67,7 +68,7 @@ export function isUri(value: string): boolean {
 
     // Check for illegal characters
     if (
-        /[^a-z0-9\:\/\?\#\[\]\@\!\$\&\'\(\)\*\+\,\;\=\.\-\_\~\%]/i.test(value)
+        /[^a-z0-9:/?#[\]@!$&'()*+,;=.\-_~%]/i.test(value)
     ) {
         return false;
     }
@@ -81,7 +82,7 @@ export function isUri(value: string): boolean {
 
     // Directly from RFC 3986
     const split = value.match(
-        /(?:([^:\/?#]+):)?(?:\/\/([^\/?#]*))?([^?#]*)(?:\?([^#]*))?(?:#(.*))?/,
+        /(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*)(?:\?([^#]*))?(?:#(.*))?/,
     );
 
     if (!split) return false;
@@ -100,7 +101,7 @@ export function isUri(value: string): boolean {
     }
 
     // Scheme must begin with a letter, then consist of letters, digits, +, ., or -
-    if (!/^[a-z][a-z0-9\+\-\.]*$/.test(scheme.toLowerCase())) return false;
+    if (!/^[a-z][a-z0-9+\-.]*$/.test(scheme.toLowerCase())) return false;
 
     return true;
 }
