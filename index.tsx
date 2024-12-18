@@ -129,6 +129,10 @@ export default definePlugin({
 			name: "Luca99",
 			id: 1207731371884150804n,
 		},
+        {
+            name: "Supytalp",
+            id: 473921746144198677n
+        }
 	],
 	dependencies: ["CommandsAPI"],
 	commands: [
