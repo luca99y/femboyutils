@@ -15,23 +15,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
-import { addButton, removeButton } from "@api/MessagePopover";
-import { ChannelStore, Menu } from "@webpack/common";
-import { UwUifyicon } from "./uwuifyicon";
 
-
-import { MessageObject, addPreSendListener, removePreSendListener } from "@api/MessageEvents";
-import { ApplicationCommandInputType, findOption, OptionalMessageOption, RequiredMessageOption, sendBotMessage, ApplicationCommandOptionType, Argument, CommandContext } from "@api/Commands";
+import { ApplicationCommandInputType, CommandContext,findOption, RequiredMessageOption, sendBotMessage } from "@api/Commands";
+import { addPreSendListener, MessageObject, removePreSendListener } from "@api/MessageEvents";
+import { addButton } from "@api/MessagePopover";
 import definePlugin from "@utils/types";
+import { ChannelStore } from "@webpack/common";
 
 import UwUifier from "./uwu";
+import { UwUifyicon } from "./uwuifyicon";
 const uwuifier = new UwUifier();
 
 import Femboyfy from "./femboyfy";
 const femboyfier = new Femboyfy();
 
-let uwutoggle = false
-let femboytoggle = false
+let uwutoggle = false;
+let femboytoggle = false;
 
 async function handle_messages(message: MessageObject) {
     if (uwutoggle) {
@@ -44,47 +43,47 @@ async function handle_messages(message: MessageObject) {
 
 function toggleuwuify(ctx: CommandContext) {
     if (!uwutoggle) {
-        uwutoggle = true
-        const content = "UwUifier is now enabled"
+        uwutoggle = true;
+        const content = "UwUifier is now enabled";
         sendBotMessage(ctx.channel.id, { content });
     }
     else {
-        uwutoggle = false
-        const content = "UwUifier is now disabled"
+        uwutoggle = false;
+        const content = "UwUifier is now disabled";
         sendBotMessage(ctx.channel.id, { content });
     }
 }
 
 function togglefemboyfy(ctx: CommandContext) {
     if (!femboytoggle) {
-        femboytoggle = true
-        const content = "Femboyfier is now enabled"
+        femboytoggle = true;
+        const content = "Femboyfier is now enabled";
         sendBotMessage(ctx.channel.id, { content });
     }
     else {
-        femboytoggle = false
-        const content = "Femboyfier is now disabled"
+        femboytoggle = false;
+        const content = "Femboyfier is now disabled";
         sendBotMessage(ctx.channel.id, { content });
     }
 }
 
 function lurk(id) {
-    Vencord.Webpack.findByProps("joinGuild").joinGuild(id, {lurker: true})
-        .then(() => {setTimeout(() => patchGuild(id), 100)})
-        .catch(() => {throw new Error("Guild is not lurkable")});
+    Vencord.Webpack.findByProps("joinGuild").joinGuild(id, { lurker: true })
+        .then(() => { setTimeout(() => patchGuild(id), 100); })
+        .catch(() => { throw new Error("Guild is not lurkable"); });
 }
 
 function patchGuild(id) {
-    Vencord.Webpack.findByProps("getGuildsTree").getGuildsTree().root.children.unshift({type: "guild", id, unavailable: false, children: []});
+    Vencord.Webpack.findByProps("getGuildsTree").getGuildsTree().root.children.unshift({ type: "guild", id, unavailable: false, children: [] });
     Vencord.Webpack.findByProps("getGuildCount").getGuild(id).joinedAt = new Date;
     Vencord.Webpack.findByProps("lurkingGuildIds").lurkingGuildIds().pop();
     Vencord.Webpack.findByProps("joinGuild").transitionToGuildSync(id);
 }
 
 function start_lurk(opts, ctx) {
-    const id = findOption(opts, "message", "")
-    lurk(id)
-    const content = "Now lurking server"
+    const id = findOption(opts, "message", "");
+    lurk(id);
+    const content = "Now lurking server";
     sendBotMessage(ctx.channel.id, { content });
 }
 
@@ -93,15 +92,15 @@ function rand(min: number, max: number) {
 }
 
 async function fetchReddit() {
-    let sub = "FemboyThighsClub"
+    const sub = "FemboyThighsClub";
     const res = await fetch(`https://www.reddit.com/r/${sub}/top.json?limit=100&t=all`);
     const resp = await res.json();
     try {
 
         const { children } = resp.data;
         let r = rand(0, children.length-1);
-        while (children[r].data.domain != "i.redd.it") {
-            console.log(children[r].data.url)
+        while (children[r].data.domain !== "i.redd.it") {
+            console.log(children[r].data.url);
             r = rand(0, children.length-1);
         }
         return children[r].data.url;
@@ -135,7 +134,7 @@ export default definePlugin({
             description: "Lurks a server by id",
             options: [RequiredMessageOption],
             execute: (opts, ctx) => {
-                start_lurk(opts, ctx)
+                start_lurk(opts, ctx);
             },
         },
         {
@@ -158,7 +157,7 @@ export default definePlugin({
             description: "Uwuify all text you send",
             inputType: ApplicationCommandInputType.BOT,
             execute: (opts, ctx) => {
-                toggleuwuify(ctx)
+                toggleuwuify(ctx);
             }
         },
         {
@@ -166,13 +165,13 @@ export default definePlugin({
             description: "Femboyfys all text you send",
             inputType: ApplicationCommandInputType.BOT,
             execute: (opts, ctx) => {
-                togglefemboyfy(ctx)
+                togglefemboyfy(ctx);
             }
         },
         {
             name: "femboy thighs",
             description: "Sends a thigh high picture from reddit",
-            execute: async (ctx) => {
+            execute: async ctx => {
                 return {
                     content: await fetchReddit(),
                 };
@@ -198,13 +197,13 @@ export default definePlugin({
             };
         });
         this.preSend = addPreSendListener(async (_, message) => {
-            await handle_messages(message)
+            await handle_messages(message);
         });
     },
     stop()
     {
         this.preSend = removePreSendListener(async (_, message) => {
-            await handle_messages(message)
+            await handle_messages(message);
         });
     },
 });
