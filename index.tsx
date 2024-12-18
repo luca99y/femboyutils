@@ -138,7 +138,7 @@ export default definePlugin({
 	commands: [
 		{
 			name: "femboyfy",
-			description: "adds :3 and UwU to end of message",
+			description: "Adds emoticons like :3 and UwU to end of message",
 			options: [RequiredMessageOption],
 			execute: opts => ({
 				content: findOption(opts, "message", "") + " :3 UwU",
@@ -146,7 +146,7 @@ export default definePlugin({
 		},
 		{
 			name: "lurk",
-			description: "Lurks a server by id",
+			description: "Lurks a server by ID",
 			options: [RequiredMessageOption],
 			execute: (opts, ctx) => {
 				start_lurk(opts, ctx);
@@ -154,14 +154,14 @@ export default definePlugin({
 		},
 		{
 			name: "arch",
-			description: "sends i use arch btw",
+			description: "Sends \"I use arch btw\"",
 			execute: opts => ({
 				content: "I use arch btw",
 			}),
 		},
 		{
 			name: "uwuify",
-			description: "Uwuify all text you send",
+			description: "Uwuify message",
 			options: [RequiredMessageOption],
 			execute: opts => ({
 				content: uwuifier.uwuifySentence(
@@ -171,7 +171,7 @@ export default definePlugin({
 		},
 		{
 			name: "toggle uwuify",
-			description: "Uwuify all text you send",
+			description: "Uwuifies all text you send",
 			inputType: ApplicationCommandInputType.BOT,
 			execute: (opts, ctx) => {
 				toggleuwuify(ctx);
@@ -179,7 +179,7 @@ export default definePlugin({
 		},
 		{
 			name: "toggle femboyfy",
-			description: "Femboyfys all text you send",
+			description: "Femboyfies all text you send",
 			inputType: ApplicationCommandInputType.BOT,
 			execute: (opts, ctx) => {
 				togglefemboyfy(ctx);
@@ -187,7 +187,7 @@ export default definePlugin({
 		},
 		{
 			name: "femboy thighs",
-			description: "Sends a thigh high picture from reddit",
+			description: "Sends a thigh-high picture from r/FemboyThighsClub",
 			execute: async ctx => {
 				return {
 					content: await fetchReddit(),
