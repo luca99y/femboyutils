@@ -34,18 +34,23 @@ export function getCapitalPercentage(str: string): number {
 }
 
 export function InitModifierParam() {
-    return (target: { [key: string]: any; }, key: string): void => {
+    return (target: any, key: string): void => {
         let value = target[key];
         let sum = 0;
 
         const getter = () => value;
         const setter = (next: number | Record<string, number>) => {
             if (typeof next === "object") {
-                sum = Object.values(next).reduce((a, b) => a + b);
+                sum = Object.values(next).reduce((a, b) => a + b, 0);
             }
 
-            // FIXME: idek what this does but there's red error squiggles
-            if (next < 0 || sum < 0 || next > 1 || sum > 1) {
+            if (typeof next === "number" && (next < 0 || next > 1)) {
+                throw new Error(
+                    `${key} modifier value must be a number between 0 and 1`,
+                );
+            }
+
+            if (sum < 0 || sum > 1) {
                 throw new Error(
                     `${key} modifier value must be a number between 0 and 1`,
                 );
