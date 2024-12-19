@@ -1,5 +1,10 @@
+/*
+ * Vencord, a Discord client mod
+ * Copyright (c) 2024 Vendicated and contributors
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
 import { classes } from "@utils/misc";
-import { cl } from "./util";
 
 export function UwUifyicon({ height = 24, width = 24, className }: { height?: number; width?: number; className?: string; }) {
     const viewBoxSize = 960;
@@ -13,7 +18,7 @@ export function UwUifyicon({ height = 24, width = 24, className }: { height?: nu
             viewBox={`0 0 ${viewBoxSize} ${viewBoxSize}`}
             height={height}
             width={width}
-            className={classes(cl("icon"), className)}
+            className={classes("vc-trans-icon", className)}
         >
             <text x={centerX - 450} y={centerY + 100} fontSize="400" fontFamily="Arial Rounded MT Bold" fill="white">UwU</text>
         </svg>
