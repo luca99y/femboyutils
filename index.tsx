@@ -6,7 +6,10 @@
 
 import {
     ApplicationCommandInputType,
+    ApplicationCommandOptionType,
+    Argument,
     CommandContext,
+    CommandReturnValue,
     findOption,
     RequiredMessageOption,
     sendBotMessage,
@@ -25,6 +28,7 @@ import { UwUifyicon } from "./uwuifyicon";
 const uwuifier = new UwUifier();
 
 import Femboyfy from "./femboyfy";
+import { Promisable } from "type-fest";
 const femboyfier = new Femboyfy();
 
 let uwutoggle = false;
@@ -100,10 +104,9 @@ function rand(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-async function fetchReddit() {
-    const sub = "FemboyThighsClub";
+async function fetchReddit(sub: string, limit: number) {
     const res = await fetch(
-        `https://www.reddit.com/r/${sub}/top.json?limit=100&t=all`
+        `https://www.reddit.com/r/${sub}/top.json?limit=${limit}&t=all`
     );
     const resp = await res.json();
     try {
@@ -186,11 +189,43 @@ export default definePlugin({
             },
         },
         {
-            name: "femboy thighs",
-            description: "Sends a thigh-high picture from r/FemboyThighsClub",
-            execute: async ctx => {
+            name: "femboy pic",
+            description: "Sends a femboy pic from Reddit",
+            options: [
+                {
+                    name: "type",
+                    description: "which subreddit to choose a pic from",
+                    type: ApplicationCommandOptionType.STRING,
+                    choices: [
+                        {
+                            name: "FemboyThighsClub",
+                            value: "FemboyThighsClub",
+                            label: "FemboyThighsClub",
+                        },
+                        {
+                            name: "FemBoys",
+                            value: "FemBoys",
+                            label: "FemBoys",
+                        },
+                        {
+                            name: "FemboyFeetPics",
+                            value: "FemboyFeetPics",
+                            label: "FemboyFeetPics",
+                        },
+                    ],
+                    required: true,
+                },
+                {
+                    name: "limit",
+                    description: "how many pics to choose from, defaults to 100",
+                    type: ApplicationCommandOptionType.NUMBER,
+                },
+            ],
+            execute: async (opts, ctx) => {
+                const subreddit = findOption(opts, "type", "");
+                const limit = findOption(opts, "limit", "100");
                 return {
-                    content: await fetchReddit(),
+                    content: await fetchReddit(subreddit, +limit),
                 };
             },
         },
