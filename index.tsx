@@ -191,8 +191,8 @@ export default definePlugin({
             description: "Sends a femboy pic from Reddit",
             options: [
                 {
-                    name: "type",
-                    description: "which subreddit to choose a pic from",
+                    name: "sub",
+                    description: "Which subreddit to choose a pic from",
                     type: ApplicationCommandOptionType.STRING,
                     choices: [
                         {
@@ -215,7 +215,7 @@ export default definePlugin({
                 },
                 {
                     name: "limit",
-                    description: "how many pics to choose from (defaults to 100)",
+                    description: "How many pics to choose from (defaults to 100)",
                     type: ApplicationCommandOptionType.NUMBER,
                 },
                 {
@@ -242,7 +242,7 @@ export default definePlugin({
                 },
             ],
             execute: async (opts, ctx) => {
-                const subreddit = findOption(opts, "type", "");
+                const subreddit = findOption(opts, "sub", "");
                 const limit = findOption(opts, "limit", "100");
                 const sort = findOption(opts, "sort", "top");
                 return {
