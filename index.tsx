@@ -102,9 +102,9 @@ function rand(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-async function fetchReddit(sub: string, limit: number) {
+async function fetchReddit(sub: string, limit: number, sort: string) {
     const res = await fetch(
-        `https://www.reddit.com/r/${sub}/top.json?limit=${limit}&t=all`
+        `https://www.reddit.com/r/${sub}/top.json?limit=${limit}&t=all&sort=${sort}`
     );
     const resp = await res.json();
     try {
@@ -215,15 +215,38 @@ export default definePlugin({
                 },
                 {
                     name: "limit",
-                    description: "how many pics to choose from, defaults to 100",
+                    description: "how many pics to choose from (defaults to 100)",
                     type: ApplicationCommandOptionType.NUMBER,
+                },
+                {
+                    name: "sort",
+                    description: "Which Reddit sorting to use (defaults to top)",
+                    type: ApplicationCommandOptionType.STRING,
+                    choices: [
+                        {
+                            name: "top",
+                            value: "top",
+                            label: "top",
+                        },
+                        {
+                            name: "hot",
+                            value: "hot",
+                            label: "hot",
+                        },
+                        {
+                            name: "new",
+                            value: "new",
+                            label: "new",
+                        },
+                    ]
                 },
             ],
             execute: async (opts, ctx) => {
                 const subreddit = findOption(opts, "type", "");
                 const limit = findOption(opts, "limit", "100");
+                const sort = findOption(opts, "sort", "top");
                 return {
-                    content: await fetchReddit(subreddit, +limit),
+                    content: await fetchReddit(subreddit, +limit, sort),
                 };
             },
         },
