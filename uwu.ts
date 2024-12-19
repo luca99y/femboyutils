@@ -10,7 +10,7 @@ import {
     InitModifierParam,
     isAt,
     isUri,
-} from "./utils.js";
+} from "./utils";
 
 interface SpacesModifier {
     faces: number;
@@ -64,6 +64,7 @@ export default class Uwuifier {
         [/ove/g, "uv"],
     ];
 
+    // FIXME: ts throwing error; pls make it stop
     @InitModifierParam()
     private _spacesModifier: SpacesModifier;
     @InitModifierParam()
