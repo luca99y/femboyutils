@@ -7,9 +7,7 @@
 import {
     ApplicationCommandInputType,
     ApplicationCommandOptionType,
-    Argument,
     CommandContext,
-    CommandReturnValue,
     findOption,
     RequiredMessageOption,
     sendBotMessage,
@@ -27,8 +25,8 @@ import UwUifier from "./uwu";
 import { UwUifyicon } from "./uwuifyicon";
 const uwuifier = new UwUifier();
 
+
 import Femboyfy from "./femboyfy";
-import { Promisable } from "type-fest";
 const femboyfier = new Femboyfy();
 
 let uwutoggle = false;
