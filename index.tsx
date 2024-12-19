@@ -173,7 +173,7 @@ export default definePlugin({
         {
             name: "toggle uwuify",
             description: "Uwuifies all text you send",
-            inputType: ApplicationCommandInputType.BOT,
+            inputType: ApplicationCommandInputType.BUILT_IN,
             execute: (opts, ctx) => {
                 toggleuwuify(ctx);
             },
@@ -181,7 +181,7 @@ export default definePlugin({
         {
             name: "toggle femboyfy",
             description: "Femboyfies all text you send",
-            inputType: ApplicationCommandInputType.BOT,
+            inputType: ApplicationCommandInputType.BUILT_IN,
             execute: (opts, ctx) => {
                 togglefemboyfy(ctx);
             },
