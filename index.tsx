@@ -133,6 +133,10 @@ export default definePlugin({
         {
             name: "Supytalp",
             id: 473921746144198677n
+        },
+        {
+            name: "zero",
+            id: 364088100458332170n
         }
     ],
     dependencies: ["CommandsAPI"],
